@@ -1,0 +1,18 @@
+Package: soracomr
+Type: Package
+Title: Management of SORACOM SIM cards
+Version: 0.1
+Date: 2015-11-12
+Author: Kosei Abe
+Maintainer: Kosei Abe <mail@recyclebin.jp>
+Description: soracomr helps you to access management api of SORACOM.
+License: BSD_3_clause + file LICENSE
+LazyData: TRUE
+Depends:
+    httr,
+    jsonlite
+Imports:
+    readr
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
