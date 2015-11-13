@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kos59125/soracomr.svg)](https://travis-ci.org/kos59125/soracomr)
+
 soracomr
 ========
 
@@ -17,11 +19,14 @@ Examples
 ```r
 library(soracomr)
 
-# Get a toke for API use
+# Get a token for API use
 token <- get_token("Your Email Address", "Your Password")
 # Get subscribers
 subscribers <- list_subscribers(token)
 print(subscribers)
+# Get report for the first subscriber
+stats <- get_stats(token, subscribers$imsi[1], period = "minutes")
+print(stats)
 ```
 
 TODO
