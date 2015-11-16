@@ -80,9 +80,9 @@ get_group <- function(token, group_id) {
 #' @export
 create_group <- function(token, group_name) {
    tags <- if (missing(group_name)) {
-      structure(list(group_name), names = "name")
-   } else {
       list()
+   } else {
+      structure(list(as.character(group_name)), names = "name")
    }
 
    response <- POST(get_endpoint("/groups"), add_headers(.headers = to_headers(token)), body = list("tags" = tags), encode = "json", verbose())
