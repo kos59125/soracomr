@@ -10,10 +10,10 @@ License: BSD_3_clause + file LICENSE
 LazyData: TRUE
 Depends:
     httr,
-    jsonlite
-Imports:
-    readr,
+    jsonlite,
     bit64
+Imports:
+    readr
 Suggests:
     testthat
 RoxygenNote: 5.0.1

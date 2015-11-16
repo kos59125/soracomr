@@ -56,12 +56,13 @@ export_stats <- function(token, service = c("air", "beam"), period = c("month"),
 
    path <- sprintf("/stats/%s/operators/%s/export", service, token$operatorId)
    body <- list(
-      "from" = as.integer(as.POSIXct(from, origin = "1970-01-01", tz = "UTC")),
-      "to" = as.integer(as.POSIXct(to, origin = "1970-01-01", tz = "UTC")),
+      # Make unixtimes into characters to prevent from formatting into exponent notation.
+      "from" = as.character(get_unixtime(from, type = "seconds")),
+      "to" = as.character(get_unixtime(to, type = "seconds")),
       "period" = period
    )
 
-   response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, verbose(), encode = "json")
+   response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 
