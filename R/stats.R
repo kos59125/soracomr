@@ -27,8 +27,9 @@ get_stats <- function(token, imsi, service = c("air", "beam"), period = c("month
 
    path <- sprintf("/stats/%s/subscribers/%s", service, imsi)
    query <- list(
-      "from" = get_unixtime(from, type = "seconds"),
-      "to" = get_unixtime(to, type = "seconds"),
+      # Make unixtimes into characters to prevent from formatting into exponent notation.
+      "from" = as.character(get_unixtime(from, type = "seconds")),
+      "to" = as.character(get_unixtime(to, type = "seconds")),
       "period" = period
    )
 

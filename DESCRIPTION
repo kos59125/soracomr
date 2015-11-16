@@ -12,7 +12,8 @@ Depends:
     httr,
     jsonlite
 Imports:
-    readr
+    readr,
+    bit64
 Suggests:
     testthat
 RoxygenNote: 5.0.1
