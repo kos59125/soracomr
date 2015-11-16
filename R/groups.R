@@ -55,29 +55,6 @@ get_group <- function(token, group_id) {
 
 #' @rdname groups
 #' @export
-get_group <- function(token, group_id) {
-   path <- sprintf("/groups/%s", group_id)
-
-   response <- GET(get_endpoint(path), add_headers(.headers = to_headers(token)))
-   status_code <- status_code(response)
-   content <- content(response, "text", encoding = "UTF-8")
-
-   switch(
-      as.character(status_code),
-      "200" = {
-         fromJSON(content)
-      },
-      "404" = {
-         stop("Group ", sQuote(group_id), " was not found.")
-      },
-      {
-         stop(content)
-      }
-   )
-}
-
-#' @rdname groups
-#' @export
 create_group <- function(token, group_name) {
    tags <- if (missing(group_name)) {
       list()

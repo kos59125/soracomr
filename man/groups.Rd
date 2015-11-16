@@ -11,8 +11,6 @@ list_groups(token)
 
 get_group(token, group_id)
 
-get_group(token, group_id)
-
 create_group(token, group_name)
 
 delete_group(token, group_id)

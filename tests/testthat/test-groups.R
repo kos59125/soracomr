@@ -75,5 +75,64 @@ with_mock(
       test_that("With an unknown status code, create_group raises an error with response content", {
          expect_error(create_group(token), "message")
       })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 204, content = '')
+      },
+      test_that("delete_group returns nothing when it succeeds", {
+         result <- delete_group(token, "group id")
+         expect_null(result)
+      })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 404, content = '')
+      },
+      test_that("delete_group warns with a specified message when the group is not found", {
+         expected_message <- sprintf("Group %s was not found.", sQuote("group_id"))
+         expect_warning(delete_group(token, "group_id"), expected_message)
+      })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, delete_group raises an error with response content", {
+         expect_error(delete_group(token, "group_id"), "message")
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 200, content = group_schema)
+      },
+      test_that("get_group without name", {
+         group <- get_group(token, "group_id")
+
+         expect_equal(group, fromJSON(group_schema))
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 404, content = '')
+      },
+      test_that("get_group raises an error when the group is not found", {
+         expected_message <- sprintf("Group %s was not found.", sQuote("group_id"))
+         expect_error(get_group(token, "group_id"), expected_message)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, get_group raises an error with response content", {
+         expect_error(get_group(token, "group_id"), "message")
+      })
    )
 )
