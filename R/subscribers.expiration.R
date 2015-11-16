@@ -14,7 +14,7 @@
 set_expiry_time <- function(token, imsi, expiration) {
    path <- sprintf("/subscribers/%s/set_expiry_time", imsi)
    body <- list(
-      "expiryTime" = as.integer(as.POSIXct(expiration, origin = "1970-01-01", tz = "UTC"))
+      "expiryTime" = get_unixtime(expiration, type = "milliseconds")
    )
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
