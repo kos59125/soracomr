@@ -29,8 +29,6 @@ with_mock(
       },
       test_that("When HTTP status code is 401, get_token raises an error", {
          expect_error(get_token("email", "password"))
-
-
       })
    ),
 
