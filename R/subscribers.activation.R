@@ -10,7 +10,7 @@
 #' @rdname subscribers_activation
 #' @export
 activate_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/activate", imsi)
+   path <- sprintf("/subscribers/%s/activate", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -19,7 +19,7 @@ activate_subscriber <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         from_content(content, "soracom_subscriber")
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -33,7 +33,7 @@ activate_subscriber <- function(token, imsi) {
 #' @rdname subscribers_activation
 #' @export
 deactivate_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/deactivate", imsi)
+   path <- sprintf("/subscribers/%s/deactivate", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -42,7 +42,7 @@ deactivate_subscriber <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -56,7 +56,7 @@ deactivate_subscriber <- function(token, imsi) {
 #' @rdname subscribers_activation
 #' @export
 terminate_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/terminate", imsi)
+   path <- sprintf("/subscribers/%s/terminate", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -65,7 +65,7 @@ terminate_subscriber <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -79,7 +79,7 @@ terminate_subscriber <- function(token, imsi) {
 #' @rdname subscribers_activation
 #' @export
 enable_termination_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/enable_termination", imsi)
+   path <- sprintf("/subscribers/%s/enable_termination", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -88,7 +88,7 @@ enable_termination_subscriber <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -102,7 +102,7 @@ enable_termination_subscriber <- function(token, imsi) {
 #' @rdname subscribers_activation
 #' @export
 disable_termination_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/disable_termination", imsi)
+   path <- sprintf("/subscribers/%s/disable_termination", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -111,7 +111,7 @@ disable_termination_subscriber <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")

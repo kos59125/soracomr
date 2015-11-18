@@ -25,8 +25,7 @@ get_token <- function(email, password, timeout) {
    switch(
       as.character(status_code),
       "200" = {
-         token <- fromJSON(content)
-         structure(token, class = "soracom_token")
+         from_content(content, c("soracom_token", "soracom_operator"), force_data_frame = FALSE)
       },
       "401" = {
          stop("Wrong email or password")

@@ -9,10 +9,10 @@ Description: soracomr helps you to access management api of SORACOM.
 License: BSD_3_clause + file LICENSE
 LazyData: TRUE
 Depends:
-    httr,
-    jsonlite
+    httr
 Imports:
-    readr
+    readr,
+    jsonlite
 Suggests:
     testthat
 RoxygenNote: 5.0.1

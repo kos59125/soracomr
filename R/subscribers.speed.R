@@ -12,7 +12,7 @@
 #' @rdname subscribers_speed
 #' @export
 update_speed_class <- function(token, imsi, class) {
-   path <- sprintf("/subscribers/%s/update_speed_class", imsi)
+   path <- sprintf("/subscribers/%s/update_speed_class", get_segment(imsi))
    body <- list("speedClass" = as.character(class))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
@@ -22,7 +22,7 @@ update_speed_class <- function(token, imsi, class) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")

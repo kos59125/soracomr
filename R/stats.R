@@ -25,7 +25,7 @@ get_stats <- function(token, imsi, service = c("air", "beam"), period = c("month
    service <- match.arg(service)
    period <- match.arg(period)
 
-   path <- sprintf("/stats/%s/subscribers/%s", service, imsi)
+   path <- sprintf("/stats/%s/subscribers/%s", service, get_segment(imsi))
    query <- list(
       "from" = get_unixtime(from, type = "seconds"),
       "to" = get_unixtime(to, type = "seconds"),
@@ -39,7 +39,7 @@ get_stats <- function(token, imsi, service = c("air", "beam"), period = c("month
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         from_content(content)
       },
       {
          stop(content)
@@ -53,7 +53,7 @@ export_stats <- function(token, service = c("air", "beam"), period = c("month"),
    service <- match.arg(service)
    period <- match.arg(period)
 
-   path <- sprintf("/stats/%s/operators/%s/export", service, token$operatorId)
+   path <- sprintf("/stats/%s/operators/%s/export", service, get_segment(token))
    body <- list(
       "from" = as.integer(as.POSIXct(from, origin = "1970-01-01", tz = "UTC")),
       "to" = as.integer(as.POSIXct(to, origin = "1970-01-01", tz = "UTC")),
@@ -67,7 +67,7 @@ export_stats <- function(token, service = c("air", "beam"), period = c("month"),
    switch(
       as.character(status_code),
       "200" = {
-         result <- fromJSON(content)
+         result <- from_content(content, force_data_frame = FALSE)
          if (isTRUE(download_file)) {
             url <- result$url
             tryCatch(

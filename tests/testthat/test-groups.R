@@ -31,7 +31,8 @@ with_mock(
       test_that("list_groups returns soracom_token object", {
          groups <- list_groups(token)
 
-         expect_equal(groups, fromJSON(list_group_schema))
+         expected <- from_content(list_group_schema, "soracom_group")
+         expect_equal(groups, expected)
       })
    ),
 
@@ -52,7 +53,8 @@ with_mock(
       test_that("create_group without name", {
          group <- create_group(token)
 
-         expect_equal(group, fromJSON(group_schema))
+         expected <- from_content(group_schema, "soracom_group")
+         expect_equal(group, expected)
       })
    ),
 
@@ -64,7 +66,8 @@ with_mock(
       test_that("create_group with name", {
          group <- create_group(token, "group name")
 
-         expect_equal(group, fromJSON(group_schema))
+         expected <- from_content(group_schema, "soracom_group")
+         expect_equal(group, expected)
       })
    ),
 
@@ -113,7 +116,8 @@ with_mock(
       test_that("get_group without name", {
          group <- get_group(token, "group_id")
 
-         expect_equal(group, fromJSON(group_schema))
+         expected <- from_content(group_schema, "soracom_group")
+         expect_equal(group, expected)
       })
    ),
 

@@ -17,7 +17,7 @@
 #' @rdname tags
 #' @export
 add_subscribers_tags <- function(token, imsi, tags) {
-   path <- sprintf("/subscribers/%s/tags", imsi)
+   path <- sprintf("/subscribers/%s/tags", get_segment(imsi))
 
    response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = build_tags(tags), encode = "json")
    status_code <- status_code(response)
@@ -26,7 +26,7 @@ add_subscribers_tags <- function(token, imsi, tags) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -40,7 +40,7 @@ add_subscribers_tags <- function(token, imsi, tags) {
 #' @rdname tags
 #' @export
 delete_subscribers_tag <- function(token, imsi, tag_name) {
-   path <- sprintf("/subscribers/%s/tags/%s", imsi, tag_name)
+   path <- sprintf("/subscribers/%s/tags/%s", get_segment(imsi), tag_name)
 
    response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -62,7 +62,7 @@ delete_subscribers_tag <- function(token, imsi, tag_name) {
 #' @rdname tags
 #' @export
 add_groups_tags <- function(token, group_id, tags) {
-   path <- sprintf("/groups/%s/tags", group_id)
+   path <- sprintf("/groups/%s/tags", get_segment(group_id))
 
    response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = build_tags(tags), encode = "json")
    status_code <- status_code(response)
@@ -71,7 +71,7 @@ add_groups_tags <- function(token, group_id, tags) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_group"))
       },
       "404" = {
          stop("Group ", sQuote(group_id), " was not found.")
@@ -84,8 +84,8 @@ add_groups_tags <- function(token, group_id, tags) {
 
 #' @rdname tags
 #' @export
-delete_subscribers_tag <- function(token, group_id, tag_name) {
-   path <- sprintf("/groups/%s/tags/%s", group_id, tag_name)
+delete_groups_tag <- function(token, group_id, tag_name) {
+   path <- sprintf("/groups/%s/tags/%s", get_segment(group_id), tag_name)
 
    response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)

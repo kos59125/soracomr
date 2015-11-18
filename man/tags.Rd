@@ -3,16 +3,17 @@
 \name{add_subscribers_tags}
 \alias{add_groups_tags}
 \alias{add_subscribers_tags}
+\alias{delete_groups_tag}
 \alias{delete_subscribers_tag}
 \title{Tags}
 \usage{
 add_subscribers_tags(token, imsi, tags)
 
-delete_subscribers_tag(token, group_id, tag_name)
+delete_subscribers_tag(token, imsi, tag_name)
 
 add_groups_tags(token, group_id, tags)
 
-delete_subscribers_tag(token, group_id, tag_name)
+delete_groups_tag(token, group_id, tag_name)
 }
 \arguments{
 \item{token}{Your API token.}
@@ -21,9 +22,9 @@ delete_subscribers_tag(token, group_id, tag_name)
 
 \item{tags}{Tags to set. See details for valid input format.}
 
-\item{group_id}{Group ID.}
-
 \item{tag_name}{Tag name to delete.}
+
+\item{group_id}{Group ID.}
 }
 \description{
 Tags

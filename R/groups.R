@@ -22,7 +22,7 @@ list_groups <- function(token) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         from_content(content, "soracom_group")
       },
       {
          stop(content)
@@ -33,7 +33,7 @@ list_groups <- function(token) {
 #' @rdname groups
 #' @export
 get_group <- function(token, group_id) {
-   path <- sprintf("/groups/%s", group_id)
+   path <- sprintf("/groups/%s", get_segment(group_id))
 
    response <- GET(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -42,7 +42,7 @@ get_group <- function(token, group_id) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         from_content(content, "soracom_group")
       },
       "404" = {
          stop("Group ", sQuote(group_id), " was not found.")
@@ -62,14 +62,14 @@ create_group <- function(token, group_name) {
       structure(list(as.character(group_name)), names = "name")
    }
 
-   response <- POST(get_endpoint("/groups"), add_headers(.headers = to_headers(token)), body = list("tags" = tags), encode = "json", verbose())
+   response <- POST(get_endpoint("/groups"), add_headers(.headers = to_headers(token)), body = list("tags" = tags), encode = "json")
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 
    switch(
       as.character(status_code),
       "201" = {
-         fromJSON(content)
+         from_content(content, "soracom_group")
       },
       {
          stop(content)
@@ -80,7 +80,7 @@ create_group <- function(token, group_name) {
 #' @rdname groups
 #' @export
 delete_group <- function(token, group_id) {
-   path <- sprintf("/groups/%s", group_id)
+   path <- sprintf("/groups/%s", get_segment(group_id))
 
    response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)

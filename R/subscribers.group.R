@@ -10,7 +10,7 @@
 #' @rdname subscribers_group
 #' @export
 attach_group <- function(token, imsi, group_id) {
-   path <- sprintf("/subscribers/%s/set_group", imsi)
+   path <- sprintf("/subscribers/%s/set_group", get_segment(imsi))
    body <- list("groupId" = group_id)
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
@@ -20,7 +20,7 @@ attach_group <- function(token, imsi, group_id) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")
@@ -34,7 +34,7 @@ attach_group <- function(token, imsi, group_id) {
 #' @rdname subscribers_group
 #' @export
 detach_group <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s/unset_group", imsi)
+   path <- sprintf("/subscribers/%s/unset_group", get_segment(imsi))
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
@@ -43,7 +43,7 @@ detach_group <- function(token, imsi) {
    switch(
       as.character(status_code),
       "200" = {
-         fromJSON(content)
+         invisible(from_content(content, "soracom_subscriber"))
       },
       "404" = {
          stop("Subscriber ", sQuote(imsi), " was not found.")

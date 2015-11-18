@@ -15,7 +15,7 @@ with_mock(
       test_that("get_token returns soracom_token object", {
          actual <- get_token("email", "password")
 
-         expect_equal(class(actual), "soracom_token")
+         expect_true(inherits(actual, "soracom_token"))
 
          expect_equal(actual$apiKey, "aaa")
          expect_equal(actual$operatorId, "bbb")
