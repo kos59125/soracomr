@@ -6,14 +6,31 @@
 #'    Your API token.
 #' @param imsi
 #'    Subscriber's IMSI.
+#' @param group
+#'    Group's ID.
+#' @param limit
+#'    Maximum number of response records.
+#' @param last_evaluated_key
+#'    The last subscriber's IMSI obtained last time.
+#'    If given, the API would return subscribers from its next.
 #'
 #' @rdname subscribers
-#'
 #' @export
-list_subscribers <- function(token) {
-   # TODO build a query.
+list_subscribers <- function(token, group_id, limit, last_evaluated_key) {
+   query <- list()
+   if (!missing(limit)) {
+      query <- c(query, "limit" = limit)
+   }
+   if (!missing(last_evaluated_key)) {
+      query <- c(query, "last_evaluated_key" = last_evaluated_key)
+   }
 
-   response <- GET(get_endpoint("/subscribers"), add_headers(.headers = to_headers(token)))
+   path <- "/subscribers"
+   if (!missing(group_id)) {
+      path <- sprintf("/groups/%s%s", get_segment(group_id), path)
+   }
+
+   response <- GET(get_endpoint(path), add_headers(.headers = to_headers(token)), query = query)
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 

@@ -5,14 +5,21 @@
 \alias{list_subscribers}
 \title{Subscribers Operation}
 \usage{
-list_subscribers(token)
+list_subscribers(token, group_id, limit, last_evaluated_key)
 
 get_subscriber(token, imsi)
 }
 \arguments{
 \item{token}{Your API token.}
 
+\item{limit}{Maximum number of response records.}
+
+\item{last_evaluated_key}{The last subscriber's IMSI obtained last time.
+If given, the API would return subscribers from its next.}
+
 \item{imsi}{Subscriber's IMSI.}
+
+\item{group}{Group's ID.}
 }
 \description{
 Gets/Lists ubscribers.

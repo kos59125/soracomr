@@ -77,6 +77,47 @@ with_mock(
       test_that("With an unknown status code, get_subscriber raises an error with response content", {
          expect_error(get_subscriber(token, "imsi"), "message")
       })
+   ),
+
+   with_mock(
+      "httr::GET" = function(url, ...) {
+         expect_true(grepl("/subscribers$", url))
+         expect_false(grepl("/groups/", url))
+         list(..., status_code = 200, content = list_subscriber_schema)
+      },
+      test_that("Checks the endpoint whether group_id parameter is not passed", {
+         list_subscribers(token)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(url, ...) {
+         expect_true(grepl("/groups/group_id/subscribers$", url))
+         list(..., status_code = 200, content = list_subscriber_schema)
+      },
+      test_that("Checks the endpoint whether group_id parameter is passed", {
+         list_subscribers(token, "group_id")
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(query, ...) {
+         expect_equal(query, list("limit" = 20))
+         list(..., status_code = 200, content = list_subscriber_schema)
+      },
+      test_that("Checks limit is in query", {
+         list_subscribers(token, limit = 20)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(query, ...) {
+         expect_equal(query, list("last_evaluated_key" = "imsi"))
+         list(..., status_code = 200, content = list_subscriber_schema)
+      },
+      test_that("Checks limit is in query", {
+         list_subscribers(token, last_evaluated_key = "imsi")
+      })
    )
 
 )
