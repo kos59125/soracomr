@@ -5,6 +5,7 @@
 \alias{add_subscribers_tags}
 \alias{delete_groups_tag}
 \alias{delete_subscribers_tag}
+\alias{tags}
 \title{Tags}
 \usage{
 add_subscribers_tags(token, imsi, tags)
@@ -14,6 +15,8 @@ delete_subscribers_tag(token, imsi, tag_name)
 add_groups_tags(token, group_id, tags)
 
 delete_groups_tag(token, group_id, tag_name)
+
+tags(x)
 }
 \arguments{
 \item{token}{Your API token.}

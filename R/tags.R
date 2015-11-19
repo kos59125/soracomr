@@ -103,3 +103,27 @@ delete_groups_tag <- function(token, group_id, tag_name) {
       }
    )
 }
+
+#' @rdname tags
+#' @export
+tags <- function(x) {
+   UseMethod("tags")
+}
+
+#' @export
+tags.soracom_subscriber <- function(x) {
+   tags_(x)
+}
+
+#' @export
+tags.soracom_group <- function(x) {
+   tags_(x)
+}
+
+tags_ <- function(x) {
+   pattern <- "^tags\\.(.*)$"
+   x <- x[, grep(pattern, colnames(x)), drop = FALSE]
+   colnames(x) <- sub(pattern, "\\1", colnames(x))
+   class(x) <- c("soracom_tags", "data.frame")
+   x
+}
