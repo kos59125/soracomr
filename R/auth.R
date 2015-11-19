@@ -28,7 +28,7 @@ get_token <- function(email, password, timeout) {
          from_content(content, c("soracom_token", "soracom_operator"), force_data_frame = FALSE)
       },
       "401" = {
-         stop("Wrong email or password")
+         stop("Wrong email or password.")
       },
       {
          stop(content)
