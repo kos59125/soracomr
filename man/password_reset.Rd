@@ -14,9 +14,7 @@ reset_password(token, password)
 
 \item{token}{Token sent via the reset mail.}
 
-\item{password}{New password.
-It must satisfy some criteria.
-See https://console.soracom.io/#/signup}
+\item{password}{New password. See details.}
 }
 \description{
 Password reset operations.
@@ -25,5 +23,8 @@ Password reset operations.
 If \code{issue_password_reset_token} succeed,
 then an email is send to the requested email address.
 The mail cotains a token to be used in \code{reset_password}.
+
+\code{password} must satisfy some criteria.
+See https://console.soracom.io/#/signup for details.
 }
 

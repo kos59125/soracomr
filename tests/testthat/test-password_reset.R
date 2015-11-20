@@ -1,4 +1,4 @@
-context("auth")
+context("password reset")
 
 with_mock(
    "httr::status_code" = function(r) {
@@ -10,10 +10,10 @@ with_mock(
 
    with_mock(
       "httr::POST" = function(..., body) {
-         list(..., status_code = 200, content = '{"apiKey":"aaa","operatorId":"bbb","token":"ccc"}')
+         list(..., status_code = 200, content = '')
       },
       test_that("issue_password_reset_token shows a message when succeeded", {
-         expect_message(issue_password_reset_token("email"), sprintf(sprintf("Sent a mail to %s", sQuote("email"))))
+         expect_message(issue_password_reset_token("email"), sprintf(sprintf("Sent a mail to %s.", sQuote("email"))))
       })
    ),
 

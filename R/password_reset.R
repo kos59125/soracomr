@@ -12,9 +12,11 @@
 #' @param token
 #'    Token sent via the reset mail.
 #' @param password
-#'    New password.
-#'    It must satisfy some criteria.
-#'    See https://console.soracom.io/#/signup
+#'    New password. See details.
+#'
+#' @details
+#' \code{password} must satisfy some criteria.
+#' See https://console.soracom.io/#/signup for details.
 #'
 #' @rdname password_reset
 #' @export
@@ -28,7 +30,7 @@ issue_password_reset_token <- function(email) {
    switch(
       as.character(status_code),
       "200" = {
-         message("Sent a mail to ", sQuote(email))
+         message("Sent a mail to ", sQuote(email), ".")
          invisible()
       },
       "400" = {
