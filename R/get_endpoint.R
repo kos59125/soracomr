@@ -10,6 +10,10 @@ get_segment.default <- function(x) {
    x
 }
 
+get_segment.soracom_token <- function(x) {
+   x$operatorId
+}
+
 get_segment.soracom_operator <- function(x) {
    x$operatorId
 }
