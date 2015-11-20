@@ -16,4 +16,6 @@ Imports:
     bit64
 Suggests:
     testthat
+URL: https://github.com/kos59125/soracomr
+BugReports: https://github.com/kos59125/soracomr/issues
 RoxygenNote: 5.0.1
