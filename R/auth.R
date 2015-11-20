@@ -15,7 +15,7 @@
 get_token <- function(email, password, timeout) {
    body <- list(email = email, password = password)
    if (!missing(timeout)) {
-      body <- c(tokenTimeoutSeconds = timeout)
+      body <- c(body, tokenTimeoutSeconds = timeout)
    }
 
    response <- POST(get_endpoint("/auth"), body = body, encode = "json")
