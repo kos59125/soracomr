@@ -6,14 +6,16 @@
 \alias{as.character.soracom_subscriber}
 \title{Character Vectors}
 \usage{
-\method{as.character}{soracom_operator}(x)
+\method{as.character}{soracom_operator}(x, ...)
 
-\method{as.character}{soracom_subscriber}(x)
+\method{as.character}{soracom_subscriber}(x, ...)
 
-\method{as.character}{soracom_group}(x)
+\method{as.character}{soracom_group}(x, ...)
 }
 \arguments{
 \item{x}{Response by SORACOM API.}
+
+\item{...}{Not used.}
 }
 \description{
 Character Vectors

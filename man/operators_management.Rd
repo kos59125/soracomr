@@ -16,12 +16,16 @@ get_support_token(token)
 \item{token}{Your API token.}
 
 \item{timeout}{The timeout seconds of the request token.}
+
+\item{current}{Current password.}
+
+\item{new}{New password.}
 }
 \description{
 Manages operators.
 }
 \details{
-\code{password} must satisfy some criteria.
+\code{new} must satisfy some criteria.
 See https://console.soracom.io/#/signup for details.
 }
 

@@ -6,9 +6,13 @@
 #'    Your API token.
 #' @param timeout
 #'    The timeout seconds of the request token.
+#' @param current
+#'    Current password.
+#' @param new
+#'    New password.
 #'
 #' @details
-#' \code{password} must satisfy some criteria.
+#' \code{new} must satisfy some criteria.
 #' See https://console.soracom.io/#/signup for details.
 #'
 #' @rdname operators_management
