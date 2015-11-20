@@ -12,14 +12,14 @@ get_subscriber(token, imsi)
 \arguments{
 \item{token}{Your API token.}
 
+\item{group_id}{Group's ID.}
+
 \item{limit}{Maximum number of response records.}
 
 \item{last_evaluated_key}{The last subscriber's IMSI obtained last time.
 If given, the API would return subscribers from its next.}
 
 \item{imsi}{Subscriber's IMSI.}
-
-\item{group}{Group's ID.}
 }
 \description{
 Gets/Lists ubscribers.

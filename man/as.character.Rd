@@ -12,6 +12,9 @@
 
 \method{as.character}{soracom_group}(x)
 }
+\arguments{
+\item{x}{Response by SORACOM API.}
+}
 \description{
 Character Vectors
 }

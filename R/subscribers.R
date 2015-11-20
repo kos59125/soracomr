@@ -6,7 +6,7 @@
 #'    Your API token.
 #' @param imsi
 #'    Subscriber's IMSI.
-#' @param group
+#' @param group_id
 #'    Group's ID.
 #' @param limit
 #'    Maximum number of response records.

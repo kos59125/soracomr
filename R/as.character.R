@@ -1,5 +1,8 @@
 #' Character Vectors
 #'
+#' @param x
+#'    Response by SORACOM API.
+#'
 #' @rdname as.character
 #' @export
 as.character.soracom_operator <- function(x) {
