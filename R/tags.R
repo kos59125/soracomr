@@ -10,6 +10,8 @@
 #'    Tags to set. See details for valid input format.
 #' @param tag_name
 #'    Tag name to delete.
+#' @param x
+#'    Something that may have one or more tags.
 #'
 #' @details
 #' \code{tags} should be one of a character vector with names, a list with names, or a data frame with column tagName and tagValue.

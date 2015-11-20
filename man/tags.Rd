@@ -28,6 +28,8 @@ tags(x)
 \item{tag_name}{Tag name to delete.}
 
 \item{group_id}{Group ID.}
+
+\item{x}{Something that may have one or more tags.}
 }
 \description{
 Tags
