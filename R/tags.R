@@ -145,9 +145,5 @@ tags.soracom_group <- function(x) {
 }
 
 tags_ <- function(x) {
-   pattern <- "^tags\\.(.*)$"
-   x <- x[, grep(pattern, colnames(x)), drop = FALSE]
-   colnames(x) <- sub(pattern, "\\1", colnames(x))
-   class(x) <- c("soracom_tags", "data.frame")
-   x
+   extract_property(x, "tags", "soracom_tags")
 }
