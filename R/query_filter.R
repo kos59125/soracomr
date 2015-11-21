@@ -12,6 +12,8 @@
 #'    Status filter.
 #' @param speed_class_filter
 #'    Speed class filter.
+#' @param target
+#'    A value indicating to which event handlers to get is bound to.
 #'
 #' @details
 #' \code{tag_value_match_mode} must be either \code{"exact"} or \code{"prefix"}.
@@ -75,6 +77,20 @@ query_filter_group <- function(tag_name, tag_value, tag_value_match_mode = c("ex
          "tag_value" = tag_value,
          "tag_value_match_mode" = match.arg(tag_value_match_mode)
       )
+   }
+
+   query
+}
+
+#' @rdname query_filter
+#' @export
+query_filter_event_handler <- function(target = c("operator", "group")) {
+   query <- list()
+
+   # target filter
+   if (!missing(target)) {
+      target <- match.arg(target)
+      query <- c(query, list("target" = target))
    }
 
    query

@@ -22,3 +22,9 @@ as.character.soracom_subscriber <- function(x, ...) {
 as.character.soracom_group <- function(x, ...) {
    x$groupId
 }
+
+#' @rdname as.character
+#' @export
+as.character.soracom_event_handler <- function(x, ...) {
+   x$handlerId
+}

@@ -25,3 +25,7 @@ get_segment.soracom_subscriber <- function(x) {
 get_segment.soracom_group <- function(x) {
    x$groupId
 }
+
+get_segment.soracom_event_handler <- function(x) {
+   x$handlerId
+}

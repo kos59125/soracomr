@@ -42,7 +42,6 @@ test_that("Error when unknown speed class is given", {
    expect_error(query_filter_subscriber(status_filter = "unknown"), "Invalid status.")
 })
 
-
 ##############################
 ## query_filter_group
 ##############################
@@ -56,4 +55,13 @@ test_that("Check tag filter: query_filter_group", {
 
 test_that("When tag_name is given, tag_value is required: query_filter_group", {
    expect_error(query_filter_group(tag_name = "foo"), "tag_value is required when tag_name is given.")
+})
+
+##############################
+## query_filter_event_handler
+##############################
+
+test_that("query_filter_event_handler", {
+   filter <- query_filter_event_handler(target = "operator")
+   expect_equal(filter$target, "operator")
 })
