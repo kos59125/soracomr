@@ -22,10 +22,10 @@ get_new_token <- function(token, timeout) {
 
    body <- list()
    if (!missing(timeout)) {
-      body <- c(body, "timeout_seconds" = timeout)
+      body <- c(body, "tokenTimeoutSeconds" = timeout)
    }
 
-   response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
+   response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json", verbose())
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 

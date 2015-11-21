@@ -57,7 +57,7 @@ with_mock(
 
    with_mock(
       "httr::POST" = function(..., body) {
-         expect_equal(body$timeout_seconds, 10)
+         expect_equal(body$tokenTimeoutSeconds, 10)
          list(..., body = body, status_code = 200, content = '{"token":"newtoken"}')
       },
       test_that("Check timeout", {
