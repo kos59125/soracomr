@@ -73,6 +73,67 @@ with_mock(
       test_that("Check path when imsi is given", {
          list_event_handlers(token, "imsi")
       })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 200, content = event_handler_schema)
+      },
+      test_that("get_event_handler returns soracom_event_handler object", {
+         handlers <- get_event_handler(token, "handler_id")
+         expect_true(inherits(handlers, "soracom_event_handler"))
+
+         expected <- from_content(list_event_handler_schema, "soracom_event_handler", force_data_frame = FALSE)
+         expect_equal(handlers, expected)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 404, content = '')
+      },
+      test_that("get_event_handler raises an error when the event_handler is not found", {
+         expected_message <- sprintf("Event handler %s was not found.", sQuote("handler_id"))
+         expect_error(get_event_handler(token, "handler_id"), expected_message)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, get_event_handler raises an error with response content", {
+         expect_error(get_event_handler(token, "handler_id"), "message")
+      })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 200, content = '')
+      },
+      test_that("delete_event_handler returns nothing when it succeeds", {
+         result <- delete_event_handler(token, "handler_id")
+         expect_null(result)
+      })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 404, content = '')
+      },
+      test_that("delete_event_handler warns with a specified message when the group is not found", {
+         expected_message <- sprintf("Event handler %s was not found.", sQuote("handler_id"))
+         expect_warning(delete_event_handler(token, "handler_id"), expected_message)
+      })
+   ),
+
+   with_mock(
+      "httr::DELETE" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, delete_event_handler raises an error with response content", {
+         expect_error(delete_event_handler(token, "handler_id"), "message")
+      })
    )
 
 )

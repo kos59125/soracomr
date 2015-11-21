@@ -4,6 +4,8 @@
 #'
 #' @param token
 #'    Your API token.
+#' @param handler_id
+#'    Handler ID.
 #' @param imsi
 #'    Subscriber's IMSI.
 #' @param filter
@@ -32,6 +34,54 @@ list_event_handlers <- function(token, imsi, filter) {
       as.character(status_code),
       "200" = {
          from_content(content, "soracom_event_handler", force_data_frame = FALSE)
+      },
+      {
+         stop(content)
+      }
+   )
+}
+
+#' @rdname event_handlers
+#' @export
+get_event_handler <- function(token, handler_id) {
+   path <- sprintf("/event_handlers/%s", get_segment(handler_id))
+
+   response <- GET(get_endpoint(path), add_headers(.headers = to_headers(token)))
+   status_code <- status_code(response)
+   content <- content(response, "text", encoding = "UTF-8")
+
+   switch(
+      as.character(status_code),
+      "200" = {
+         ## this is a hack to enforce the result of jsonlite::fromJSON as a data frame
+         content <- sprintf("[%s]", content)
+         from_content(content, "soracom_event_handler", force_data_frame = FALSE)
+      },
+      "404" = {
+         stop("Event handler ", sQuote(handler_id), " was not found.")
+      },
+      {
+         stop(content)
+      }
+   )
+}
+
+#' @rdname event_handlers
+#' @export
+delete_event_handler <- function(token, handler_id) {
+   path <- sprintf("/event_handlers/%s", get_segment(handler_id))
+
+   response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)), verbose())
+   status_code <- status_code(response)
+   content <- content(response, "text", encoding = "UTF-8")
+
+   switch(
+      as.character(status_code),
+      "200" = {  # as-is, I prefer 204
+         invisible()
+      },
+      "404" = {
+         warning("Event handler ", sQuote(handler_id), " was not found.")
       },
       {
          stop(content)
