@@ -138,5 +138,26 @@ with_mock(
       test_that("With an unknown status code, get_group raises an error with response content", {
          expect_error(get_group(token, "group_id"), "message")
       })
+   ),
+
+   with_mock(
+      "httr::GET" = function(query, ...) {
+         expect_equal(query, list("limit" = 20))
+         list(..., status_code = 200, content = list_group_schema)
+      },
+      test_that("Checks limit is in query", {
+         list_groups(token, limit = 20)
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(query, ...) {
+         expect_equal(query, list("last_evaluated_key" = "imsi"))
+         list(..., status_code = 200, content = list_group_schema)
+      },
+      test_that("Checks limit is in query", {
+         list_groups(token, last_evaluated_key = "imsi")
+      })
    )
+
 )
