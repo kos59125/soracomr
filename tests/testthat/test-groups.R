@@ -28,8 +28,9 @@ with_mock(
       "httr::GET" = function(...) {
          list(..., status_code = 200, content = list_group_schema)
       },
-      test_that("list_groups returns soracom_token object", {
+      test_that("list_groups returns soracom_group object", {
          groups <- list_groups(token)
+         expect_true(inherits(groups, "soracom_group"))
 
          expected <- from_content(list_group_schema, "soracom_group")
          expect_equal(groups, expected)

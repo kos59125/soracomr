@@ -22,10 +22,11 @@ with_mock(
       "httr::GET" = function(...) {
          list(..., status_code = 200, content = list_operator_schema)
       },
-      test_that("get_operator returns soracom_token object", {
+      test_that("get_operator returns soracom_operator object", {
          token <- list("operatorId" = "operator_id")
          class(token) <- "soracom_token"
          operators <- get_operator(token)
+         expect_true(inherits(operators, "soracom_operator"))
 
          expected <- from_content(list_operator_schema, "soracom_operator")
          expect_equal(operators, expected)

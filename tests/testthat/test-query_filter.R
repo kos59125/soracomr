@@ -7,14 +7,14 @@ context("query filter")
 ##
 ## tag
 ##
-test_that("Check tag filter query_filter_subscriber", {
+test_that("Check tag filter: query_filter_subscriber", {
    filter <- query_filter_subscriber(tag_name = "foo", tag_value = "bar", tag_value_match_mode = "prefix")
    expect_equal(filter$tag_name, "foo")
    expect_equal(filter$tag_value, "bar")
    expect_equal(filter$tag_value_match_mode, "prefix")
 })
 
-test_that("When tag_name is given, tag_value is required", {
+test_that("When tag_name is given, tag_value is required: query_filter_subscriber", {
    expect_error(query_filter_subscriber(tag_name = "foo"), "tag_value is required when tag_name is given.")
 })
 
@@ -47,13 +47,13 @@ test_that("Error when unknown speed class is given", {
 ## query_filter_group
 ##############################
 
-test_that("Check tag filter query_filter_group", {
-   filter <- query_filter_subscriber(tag_name = "foo", tag_value = "bar", tag_value_match_mode = "prefix")
+test_that("Check tag filter: query_filter_group", {
+   filter <- query_filter_group(tag_name = "foo", tag_value = "bar", tag_value_match_mode = "prefix")
    expect_equal(filter$tag_name, "foo")
    expect_equal(filter$tag_value, "bar")
    expect_equal(filter$tag_value_match_mode, "prefix")
 })
 
-test_that("When tag_name is given, tag_value is required", {
-   expect_error(query_filter_subscriber(tag_name = "foo"), "tag_value is required when tag_name is given.")
+test_that("When tag_name is given, tag_value is required: query_filter_group", {
+   expect_error(query_filter_group(tag_name = "foo"), "tag_value is required when tag_name is given.")
 })
