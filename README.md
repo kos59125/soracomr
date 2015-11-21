@@ -19,8 +19,8 @@ Examples
 ```r
 library(soracomr)
 
-# Get a token for API use
-token <- get_token("Your Email Address", "Your Password")
+# Get a 30-minute-lifetime token for API use
+token <- get_token("Your Email Address", "Your Password", timeout = "30 mins")
 # Get subscribers
 subscribers <- list_subscribers(token)
 print(subscribers)
