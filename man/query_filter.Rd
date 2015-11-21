@@ -13,8 +13,19 @@ query_filter(tag_name, tag_value, tag_value_match_mode = c("exact", "prefix"),
 \item{tag_value}{Tag value for filtering.}
 
 \item{tag_value_match_mode}{Tag match mode.}
+
+\item{status_filter}{Status filter.}
+
+\item{speed_class_filter}{Speed class filter.}
 }
 \description{
 Constructs a query list for request filtering.
+}
+\details{
+\code{tag_value_match_mode} must be either \code{"exact"} or \code{"prefix"}.
+
+\code{status_filter} must be a character vector that contains one or more in \code{"s1.minimum"}, \code{"s1.slow"}, \code{"s1.standard"}, or \code{"s1.fast"}
+
+\code{speed_class_filter} must be a character vector that contains one or more in \code{"active"}, \code{"inactive"}, \code{"ready"}, \code{"instock"}, \code{"shipped"}, \code{"suspended"}, or \code{"terminated"}.
 }
 

@@ -8,6 +8,17 @@
 #'    Tag value for filtering.
 #' @param tag_value_match_mode
 #'    Tag match mode.
+#' @param status_filter
+#'    Status filter.
+#' @param speed_class_filter
+#'    Speed class filter.
+#'
+#' @details
+#' \code{tag_value_match_mode} must be either \code{"exact"} or \code{"prefix"}.
+#'
+#' \code{status_filter} must be a character vector that contains one or more in \code{"s1.minimum"}, \code{"s1.slow"}, \code{"s1.standard"}, or \code{"s1.fast"}
+#'
+#' \code{speed_class_filter} must be a character vector that contains one or more in \code{"active"}, \code{"inactive"}, \code{"ready"}, \code{"instock"}, \code{"shipped"}, \code{"suspended"}, or \code{"terminated"}.
 #'
 #' @export
 query_filter <- function(tag_name, tag_value, tag_value_match_mode = c("exact", "prefix"), status_filter, speed_class_filter) {
