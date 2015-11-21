@@ -5,6 +5,8 @@
 \alias{add_subscribers_tags}
 \alias{delete_groups_tag}
 \alias{delete_subscribers_tag}
+\alias{set_groups_name}
+\alias{set_subscribers_name}
 \alias{tags}
 \title{Tags}
 \usage{
@@ -15,6 +17,10 @@ delete_subscribers_tag(token, imsi, tag_name)
 add_groups_tags(token, group_id, tags)
 
 delete_groups_tag(token, group_id, tag_name)
+
+set_subscribers_name(token, imsi, name)
+
+set_groups_name(token, group_id, name)
 
 tags(x)
 }
@@ -28,6 +34,8 @@ tags(x)
 \item{tag_name}{Tag name to delete.}
 
 \item{group_id}{Group ID.}
+
+\item{name}{Name for subscribers or groups.}
 
 \item{x}{Something that may have one or more tags.}
 }

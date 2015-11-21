@@ -10,6 +10,8 @@
 #'    Tags to set. See details for valid input format.
 #' @param tag_name
 #'    Tag name to delete.
+#' @param name
+#'    Name for subscribers or groups.
 #' @param x
 #'    Something that may have one or more tags.
 #'
@@ -104,6 +106,26 @@ delete_groups_tag <- function(token, group_id, tag_name) {
          stop(content)
       }
    )
+}
+
+#' @rdname tags
+#' @export
+set_subscribers_name <- function(token, imsi, name) {
+   if (is.null(name) || is.na(name)) {
+      delete_subscribers_tag("name")
+   } else {
+      add_subscribers_tags(token, imsi, c("name" = name))
+   }
+}
+
+#' @rdname tags
+#' @export
+set_groups_name <- function(token, group_id, name) {
+   if (is.null(name) || is.na(name)) {
+      delete_groups_tag("name")
+   } else {
+      add_groups_tags(token, group_id, c("name" = name))
+   }
 }
 
 #' @rdname tags
