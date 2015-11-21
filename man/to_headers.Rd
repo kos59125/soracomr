@@ -9,7 +9,7 @@ to_headers(token, language = getOption("soracomr.language"))
 \arguments{
 \item{token}{API Token.}
 
-\item{lang}{Two-letter language.}
+\item{language}{Two-letter language.}
 }
 \description{
 Constructs additional headers from the specified token.
