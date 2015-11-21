@@ -25,13 +25,12 @@ token <- get_token("Your Email Address", "Your Password")
 subscribers <- list_subscribers(token)
 print(subscribers)
 # Get report for the first subscriber
-stats <- get_stats(token, subscribers$imsi[1], period = "minutes")
-print(stats)
+first_subscriber <- head(subscribers, 1)
+stats <- get_stats(token, first_subscriber, period = "minutes")
+print(head(stats))
 ```
 
 TODO
 ----
 
 * Implements EventHandler APIs
-* Enables to pass parameters for some APIs (e.g. list_subscribers)
-
