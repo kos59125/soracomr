@@ -4,8 +4,15 @@
 \name{soracomr}
 \alias{soracomr}
 \alias{soracomr-package}
-\title{**EXPERIMENTAL** Management of SORACOM SIM cards}
+\title{Management of SORACOM SIM cards}
 \description{
 soracomr helps you to access management api of SORACOM.
+}
+\section{Options}{
+
+The following option is available:
+\itemize{
+\item{soracomr.language} Two-letter language (e.g. \code{"ja"}) specified in the X-Soracom-Lang header.
+}
 }
 

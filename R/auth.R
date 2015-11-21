@@ -55,10 +55,3 @@ get_token <- function(email, password, timeout) {
 print.soracom_token <- function(x, ...) {
    cat("SORACOM API token for", sQuote(x$operatorId), fill = TRUE)
 }
-
-to_headers <- function(token) {
-   c(
-      "X-Soracom-API-Key" = token$apiKey,
-      "X-Soracom-Token" = token$token
-   )
-}
