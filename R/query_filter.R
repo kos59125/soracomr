@@ -20,8 +20,9 @@
 #'
 #' \code{speed_class_filter} must be a character vector that contains one or more in \code{"active"}, \code{"inactive"}, \code{"ready"}, \code{"instock"}, \code{"shipped"}, \code{"suspended"}, or \code{"terminated"}.
 #'
+#' @rdname query_filter
 #' @export
-query_filter <- function(tag_name, tag_value, tag_value_match_mode = c("exact", "prefix"), status_filter, speed_class_filter) {
+query_filter_subscriber <- function(tag_name, tag_value, tag_value_match_mode = c("exact", "prefix"), status_filter, speed_class_filter) {
    query <- list()
 
    # tag filter
@@ -53,6 +54,27 @@ query_filter <- function(tag_name, tag_value, tag_value_match_mode = c("exact", 
       }
       status_filter <- paste(unique(status_filter), collapse = "|")
       query <- c(query, "status_filter" = status_filter)
+   }
+
+   query
+}
+
+#' @rdname query_filter
+#' @export
+query_filter_group <- function(tag_name, tag_value, tag_value_match_mode = c("exact", "prefix")) {
+   query <- list()
+
+   # tag filter
+   if (!missing(tag_name)) {
+      if (missing(tag_value)) {
+         stop("tag_value is required when tag_name is given.")
+      }
+      query <- c(
+         query,
+         "tag_name" = tag_name,
+         "tag_value" = tag_value,
+         "tag_value_match_mode" = match.arg(tag_value_match_mode)
+      )
    }
 
    query

@@ -27,6 +27,6 @@ If given, the API would return subscribers from its next.}
 Gets/Lists ubscribers.
 }
 \seealso{
-query_filter
+query_filter_subscriber
 }
 

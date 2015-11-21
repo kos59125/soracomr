@@ -16,7 +16,8 @@
 #' @param filter
 #'    Filter condition. If both \code{group_id} and \code{filter} are present, \code{filter} is ignored.
 #'
-#' @seealso query_filter
+#' @seealso query_filter_subscriber
+#'
 #' @rdname subscribers
 #' @export
 list_subscribers <- function(token, group_id, limit, last_evaluated_key, filter) {

@@ -16,7 +16,7 @@
 #' @param filter
 #'    Filter condition.
 #'
-#' @seealso query_filter
+#' @seealso query_filter_group
 #'
 #' @rdname groups
 #' @export

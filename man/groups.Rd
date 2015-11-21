@@ -33,6 +33,6 @@ If given, the API would return subscribers from its next.}
 Gets, lists or creates groups operation.
 }
 \seealso{
-query_filter
+query_filter_group
 }
 
