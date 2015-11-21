@@ -15,7 +15,7 @@ get_support_token(token)
 \arguments{
 \item{token}{Your API token.}
 
-\item{timeout}{The timeout seconds of the request token.}
+\item{timeout}{The timeout duration of the request token. See details.}
 
 \item{current}{Current password.}
 
@@ -27,5 +27,9 @@ Manages operators.
 \details{
 \code{new} must satisfy some criteria.
 See https://console.soracom.io/#/signup for details.
+
+When \code{timeout} is given in numeric format, it is interpret as integer.
+If another format is given, the function tries to convert it into seconds.
+For example, if the value is "2 hours" in character, it will be 7200 (secs).
 }
 

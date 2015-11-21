@@ -63,5 +63,15 @@ with_mock(
       test_that("Check timeout parameter", {
          get_token("email", "password", 10)
       })
+   ),
+
+   with_mock(
+      "httr::POST" = function(..., body) {
+         expect_equal(body$tokenTimeoutSeconds, 7200L)
+         list(..., body = body, status_code = 200, content = '{"apiKey":"aaa","operatorId":"bbb","token":"ccc"}')
+      },
+      test_that("Check timeout parameter in character", {
+         get_token("email", "password", "2 hours")
+      })
    )
 )

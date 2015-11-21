@@ -5,7 +5,7 @@
 #' @param token
 #'    Your API token.
 #' @param timeout
-#'    The timeout seconds of the request token.
+#'    The timeout duration of the request token. See details.
 #' @param current
 #'    Current password.
 #' @param new
@@ -15,6 +15,10 @@
 #' \code{new} must satisfy some criteria.
 #' See https://console.soracom.io/#/signup for details.
 #'
+#' When \code{timeout} is given in numeric format, it is interpret as integer.
+#' If another format is given, the function tries to convert it into seconds.
+#' For example, if the value is "2 hours" in character, it will be 7200 (secs).
+#'
 #' @rdname operators_management
 #' @export
 get_new_token <- function(token, timeout) {
@@ -22,7 +26,7 @@ get_new_token <- function(token, timeout) {
 
    body <- list()
    if (!missing(timeout)) {
-      body <- c(body, "tokenTimeoutSeconds" = timeout)
+      body <- c(body, "tokenTimeoutSeconds" = duration(timeout))
    }
 
    response <- POST(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")

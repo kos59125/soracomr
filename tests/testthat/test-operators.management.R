@@ -68,6 +68,17 @@ with_mock(
 
    with_mock(
       "httr::POST" = function(..., body) {
+         expect_equal(body$tokenTimeoutSeconds, 86400L)
+         list(..., body = body, status_code = 200, content = '{"token":"newtoken"}')
+      },
+      test_that("Check timeout in character", {
+         token <- list("token" = "foo")
+         get_new_token(token, "1 day")
+      })
+   ),
+
+   with_mock(
+      "httr::POST" = function(..., body) {
          list(..., body = body, status_code = 200, content = '')
       },
       test_that("change_password shows a message when succeeded", {

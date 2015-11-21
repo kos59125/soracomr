@@ -7,15 +7,20 @@
 #' @param password
 #'    Your password.
 #' @param timeout
-#'    The timeout seconds of the request token.
+#'    The timeout duration of the request token. See details.
 #' @return
 #'    Your API token.
+#'
+#' @details
+#' When \code{timeout} is given in numeric format, it is interpret as integer.
+#' If another format is given, the function tries to convert it into seconds.
+#' For example, if the value is "2 hours" in character, it will be 7200 (secs).
 #'
 #' @export
 get_token <- function(email, password, timeout) {
    body <- list(email = email, password = password)
    if (!missing(timeout)) {
-      body <- c(body, tokenTimeoutSeconds = timeout)
+      body <- c(body, tokenTimeoutSeconds = duration(timeout))
    }
 
    response <- POST(get_endpoint("/auth"), body = body, encode = "json")

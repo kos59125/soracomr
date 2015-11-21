@@ -11,12 +11,17 @@ get_token(email, password, timeout)
 
 \item{password}{Your password.}
 
-\item{timeout}{The timeout seconds of the request token.}
+\item{timeout}{The timeout duration of the request token. See details.}
 }
 \value{
 Your API token.
 }
 \description{
 Retrieves your SORACOM's API key.
+}
+\details{
+When \code{timeout} is given in numeric format, it is interpret as integer.
+If another format is given, the function tries to convert it into seconds.
+For example, if the value is "2 hours" in character, it will be 7200 (secs).
 }
 
