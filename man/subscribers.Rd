@@ -5,7 +5,7 @@
 \alias{list_subscribers}
 \title{Subscribers Operation}
 \usage{
-list_subscribers(token, group_id, limit, last_evaluated_key)
+list_subscribers(token, group_id, limit, last_evaluated_key, filter)
 
 get_subscriber(token, imsi)
 }
@@ -19,9 +19,14 @@ get_subscriber(token, imsi)
 \item{last_evaluated_key}{The last subscriber's IMSI obtained last time.
 If given, the API would return subscribers from its next.}
 
+\item{filter}{Filter condition. If both \code{group_id} and \code{filter} are present, \code{filter} is ignored.}
+
 \item{imsi}{Subscriber's IMSI.}
 }
 \description{
 Gets/Lists ubscribers.
+}
+\seealso{
+query_filter
 }
 

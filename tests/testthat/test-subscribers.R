@@ -96,7 +96,7 @@ with_mock(
          list(..., status_code = 200, content = list_subscriber_schema)
       },
       test_that("Checks the endpoint whether group_id parameter is passed", {
-         list_subscribers(token, "group_id")
+         list_subscribers(token, group_id = "group_id")
       })
    ),
 

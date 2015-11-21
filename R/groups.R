@@ -13,17 +13,23 @@
 #'    The group id.
 #' @param group_name
 #'    The group name. For display on the user console.
+#' @param filter
+#'    Filter condition.
+#'
+#' @seealso query_filter
 #'
 #' @rdname groups
-#'
 #' @export
-list_groups <- function(token, limit, last_evaluated_key) {
+list_groups <- function(token, limit, last_evaluated_key, filter) {
    query <- list()
    if (!missing(limit)) {
       query <- c(query, "limit" = limit)
    }
    if (!missing(last_evaluated_key)) {
       query <- c(query, "last_evaluated_key" = last_evaluated_key)
+   }
+   if (!missing(filter)) {
+      query <- c(query, filter)
    }
 
    response <- GET(get_endpoint("/groups"), add_headers(.headers = to_headers(token)), query = query)

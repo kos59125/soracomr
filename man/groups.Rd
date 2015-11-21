@@ -7,7 +7,7 @@
 \alias{list_groups}
 \title{Groups Operation}
 \usage{
-list_groups(token, limit, last_evaluated_key)
+list_groups(token, limit, last_evaluated_key, filter)
 
 get_group(token, group_id)
 
@@ -23,11 +23,16 @@ delete_group(token, group_id)
 \item{last_evaluated_key}{The last subscriber's IMSI obtained last time.
 If given, the API would return subscribers from its next.}
 
+\item{filter}{Filter condition.}
+
 \item{group_id}{The group id.}
 
 \item{group_name}{The group name. For display on the user console.}
 }
 \description{
 Gets, lists or creates groups operation.
+}
+\seealso{
+query_filter
 }
 
