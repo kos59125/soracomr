@@ -6,6 +6,8 @@
 #'    Your API token.
 #' @param handler_id
 #'    Handler ID.
+#' @param handler
+#'    Event handler object.
 #' @param imsi
 #'    Subscriber's IMSI.
 #' @param filter
@@ -68,10 +70,29 @@ get_event_handler <- function(token, handler_id) {
 
 #' @rdname event_handlers
 #' @export
+create_event_handler <- function(token, handler) {
+   response <- POST(get_endpoint("/event_handlers"), add_headers(.headers = to_headers(token)), body = handler, encode = "json")
+   status_code <- status_code(response)
+   content <- content(response, "text", encoding = "UTF-8")
+
+   switch(
+      as.character(status_code),
+      "201" = {
+         ## documentation says this API returns an object, actually not.
+         invisible()
+      },
+      {
+         stop(content)
+      }
+   )
+}
+
+#' @rdname event_handlers
+#' @export
 delete_event_handler <- function(token, handler_id) {
    path <- sprintf("/event_handlers/%s", get_segment(handler_id))
 
-   response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)), verbose())
+   response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 

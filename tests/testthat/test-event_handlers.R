@@ -108,6 +108,27 @@ with_mock(
    ),
 
    with_mock(
+      "httr::POST" = function(...) {
+         list(..., status_code = 201, content = '')
+      },
+      test_that("create_event_handler returns nothing when it succeeds", {
+         handler <- list()
+         result <- create_event_handler(token, handler)
+         expect_null(result)
+      })
+   ),
+
+   with_mock(
+      "httr::POST" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, create_event_handler raises an error with response content", {
+         handler <- list()
+         expect_error(create_event_handler(token, handler), "message")
+      })
+   ),
+
+   with_mock(
       "httr::DELETE" = function(...) {
          list(..., status_code = 200, content = '')
       },
