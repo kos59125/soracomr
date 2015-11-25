@@ -129,6 +129,37 @@ with_mock(
    ),
 
    with_mock(
+      "httr::PUT" = function(...) {
+         list(..., status_code = 200, content = '')
+      },
+      test_that("put_event_handler returns nothing when it succeeds", {
+         handler <- list()
+         result <- put_event_handler(token, handler)
+         expect_null(result)
+      })
+   ),
+
+   with_mock(
+      "httr::PUT" = function(...) {
+         list(..., status_code = 400, content = '')
+      },
+      test_that("put_event_handler warns with a specified message when the group is not found", {
+         handler <- list()
+         expect_warning(put_event_handler(token, handler), "Invalid handler ID.")
+      })
+   ),
+
+   with_mock(
+      "httr::PUT" = function(...) {
+         list(..., status_code = 999, content = 'message')
+      },
+      test_that("With an unknown status code, put_event_handler raises an error with response content", {
+         handler <- list()
+         expect_error(put_event_handler(token, handler), "message")
+      })
+   ),
+
+   with_mock(
       "httr::DELETE" = function(...) {
          list(..., status_code = 200, content = '')
       },

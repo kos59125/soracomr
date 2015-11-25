@@ -10,7 +10,7 @@
 \title{Build Event Handlers}
 \usage{
 build_event_handler(target, rule, action_list, name, status = c("inactive",
-  "active"), description)
+  "active"), description = NA)
 
 rule_config(type = c("DailyTrafficRule", "DailyTotalTrafficRule",
   "MonthlyTrafficRule", "MonthlyTotalTrafficRule", "CumulativeTrafficRule"),

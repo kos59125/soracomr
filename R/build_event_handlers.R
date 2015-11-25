@@ -43,7 +43,7 @@
 #'
 #' @rdname build_event_handlers
 #' @export
-build_event_handler <- function(target, rule, action_list, name, status = c("inactive", "active"), description) {
+build_event_handler <- function(target, rule, action_list, name, status = c("inactive", "active"), description = NA) {
    target <- if (inherits(target, "soracom_subscriber")) {
       list("targetImsi" = get_segment(target))
    } else if (inherits(target, "soracom_operator") || inherits(target, "soracom_token")) {
@@ -105,7 +105,7 @@ change_speed_class_action <- function(speed_class = c("s1.minimum", "s1.slow", "
       list(
          "type" = "ChangeSpeedClassAction",
          properties = list(
-            "simType" = speed_class,
+            "speedClass" = speed_class,
             "executionDateTimeConst" = timing
          )
       ),
@@ -173,5 +173,22 @@ invoke_aws_lambda_action <- function(endpoint, function_name, access_key, secret
    )
 }
 
-#' @export
-#'
+reshape_for_post <- function(handler) {
+   if (inherits(handler, "soracom_event_handler")) {
+      handler <- flatten_data_frame(handler)
+      # removes duplicated target properties:
+      # should have only one of targetImsi, targetOperatorId, targetTag, or targetGroupId.
+      Filter(function(x) !is.na(x) && (!is.data.frame(x) || nrow(x) > 0), handler)
+   } else {
+      handler
+   }
+}
+
+flatten_data_frame <- function(x) {
+   if (is.list(x)) {
+      x <- as.list(x)  # for data.frame
+      c(lapply(x, flatten_data_frame))
+   } else {
+      x
+   }
+}

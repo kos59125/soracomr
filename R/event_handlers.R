@@ -71,7 +71,7 @@ get_event_handler <- function(token, handler_id) {
 #' @rdname event_handlers
 #' @export
 create_event_handler <- function(token, handler) {
-   response <- POST(get_endpoint("/event_handlers"), add_headers(.headers = to_headers(token)), body = handler, encode = "json")
+   response <- POST(get_endpoint("/event_handlers"), add_headers(.headers = to_headers(token)), body = reshape_for_post(handler), encode = "json")
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 
@@ -80,6 +80,31 @@ create_event_handler <- function(token, handler) {
       "201" = {
          ## documentation says this API returns an object, actually not.
          invisible()
+      },
+      {
+         stop(content)
+      }
+   )
+}
+
+#' @rdname event_handlers
+#' @export
+put_event_handler <- function(token, handler) {
+   path <- sprintf("/event_handlers/%s", get_segment(handler))
+
+   body <- reshape_for_post(handler)
+
+   response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
+   status_code <- status_code(response)
+   content <- content(response, "text", encoding = "UTF-8")
+
+   switch(
+      as.character(status_code),
+      "200" = {
+         invisible()
+      },
+      "400" = {
+         warning("Invalid handler ID.")
       },
       {
          stop(content)

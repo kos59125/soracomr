@@ -5,6 +5,7 @@
 \alias{delete_event_handler}
 \alias{get_event_handler}
 \alias{list_event_handlers}
+\alias{put_event_handler}
 \title{Event Handlers}
 \usage{
 list_event_handlers(token, imsi, filter)
@@ -12,6 +13,8 @@ list_event_handlers(token, imsi, filter)
 get_event_handler(token, handler_id)
 
 create_event_handler(token, handler)
+
+put_event_handler(token, handler)
 
 delete_event_handler(token, handler_id)
 }
