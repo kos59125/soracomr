@@ -92,9 +92,7 @@ create_event_handler <- function(token, handler) {
 put_event_handler <- function(token, handler) {
    path <- sprintf("/event_handlers/%s", get_segment(handler))
 
-   body <- reshape_for_post(handler)
-
-   response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = body, encode = "json")
+   response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = reshape_for_post(handler), encode = "json")
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 
@@ -104,7 +102,7 @@ put_event_handler <- function(token, handler) {
          invisible()
       },
       "400" = {
-         warning("Invalid handler ID.")
+         stop("Invalid handler ID.")
       },
       {
          stop(content)

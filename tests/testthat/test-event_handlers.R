@@ -145,7 +145,7 @@ with_mock(
       },
       test_that("put_event_handler warns with a specified message when the group is not found", {
          handler <- list()
-         expect_warning(put_event_handler(token, handler), "Invalid handler ID.")
+         expect_error(put_event_handler(token, handler), "Invalid handler ID.")
       })
    ),
 
