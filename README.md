@@ -33,4 +33,6 @@ print(head(stats))
 TODO
 ----
 
-* Implements EventHandler APIs
+* Beam
+* Metadata
+
