@@ -2,6 +2,10 @@ get_endpoint <- function(path) {
    sprintf("https://api.soracom.io/v1%s", path)
 }
 
+get_metadata_endpoint <- function(path) {
+   sprintf("http://metadata.soracom.io/v1%s", path)
+}
+
 get_segment <- function(x) {
    UseMethod("get_segment")
 }

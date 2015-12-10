@@ -60,9 +60,12 @@ list_subscribers <- function(token, group_id, limit, last_evaluated_key, filter)
 #' @rdname subscribers
 #' @export
 get_subscriber <- function(token, imsi) {
-   path <- sprintf("/subscribers/%s", get_segment(imsi))
-
-   response <- GET(get_endpoint(path), add_headers(.headers = to_headers(token)))
+   response <- if (missing(token) && missing(imsi)) {
+      GET(get_metadata_endpoint("/subscriber"))
+   } else {
+      path <- sprintf("/subscribers/%s", get_segment(imsi))
+      GET(get_endpoint(path), add_headers(.headers = to_headers(token)))
+   }
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 

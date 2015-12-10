@@ -119,6 +119,29 @@ with_mock(
       test_that("Checks limit is in query", {
          list_subscribers(token, last_evaluated_key = "imsi")
       })
+   ),
+
+   with_mock(
+      "httr::GET" = function(url, ...) {
+         expect_equal(url, get_metadata_endpoint("/subscriber"))
+         expect_equal(length(list(...)), 0)
+         list(..., status_code = 200, content = subscriber_schema)
+      },
+      test_that("Checks metadata subscriber", {
+         get_subscriber()
+      })
+   ),
+
+   with_mock(
+      "httr::GET" = function(url, ...) {
+         expect_equal(url, get_endpoint("/subscribers/imsi"))
+         expect_equal(length(list(...)), 1)
+         list(..., status_code = 200, content = subscriber_schema)
+      },
+      test_that("Checks usual API subscriber", {
+         token <- list()
+         get_subscriber(token, "imsi")
+      })
    )
 
 )
