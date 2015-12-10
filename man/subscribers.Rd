@@ -10,7 +10,8 @@ list_subscribers(token, group_id, limit, last_evaluated_key, filter)
 get_subscriber(token, imsi)
 }
 \arguments{
-\item{token}{Your API token.}
+\item{token}{Your API token.
+If it is missing, the metadata API is called instead of the usual API.}
 
 \item{group_id}{Group's ID.}
 

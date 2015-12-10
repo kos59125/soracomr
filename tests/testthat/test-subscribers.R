@@ -142,6 +142,15 @@ with_mock(
          token <- list()
          get_subscriber(token, "imsi")
       })
+   ),
+
+   with_mock(
+      "httr::GET" = function(url, ...) {
+         list(..., status_code = 200, content = subscriber_schema)
+      },
+      test_that("Get warning when only imsi is given", {
+         expect_warning(get_subscriber(imsi = "imsi"), "imsi is ignored since token is missing.")
+      })
    )
 
 )

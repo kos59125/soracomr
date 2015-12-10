@@ -4,6 +4,7 @@
 #'
 #' @param token
 #'    Your API token.
+#'    If it is missing, the metadata API is called instead of the usual API.
 #' @param imsi
 #'    Subscriber's IMSI.
 #' @param group_id
@@ -60,7 +61,10 @@ list_subscribers <- function(token, group_id, limit, last_evaluated_key, filter)
 #' @rdname subscribers
 #' @export
 get_subscriber <- function(token, imsi) {
-   response <- if (missing(token) && missing(imsi)) {
+   response <- if (missing(token)) {
+      if (!missing(imsi)) {
+         warning("imsi is ignored since token is missing.")
+      }
       GET(get_metadata_endpoint("/subscriber"))
    } else {
       path <- sprintf("/subscribers/%s", get_segment(imsi))
