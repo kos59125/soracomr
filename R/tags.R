@@ -21,9 +21,18 @@
 #' @rdname tags
 #' @export
 add_subscribers_tags <- function(token, imsi, tags) {
-   path <- sprintf("/subscribers/%s/tags", get_segment(imsi))
+   url <- if (missing(token)) {
+      if (!missing(imsi)) {
+         warning("imsi is ignored since token is missing.")
+      }
+      token <- NULL
+      get_metadata_endpoint("/subscriber/tags")
+   } else {
+      path <- sprintf("/subscribers/%s/tags", get_segment(imsi))
+      get_endpoint(path)
+   }
 
-   response <- PUT(get_endpoint(path), add_headers(.headers = to_headers(token)), body = build_tags(tags), encode = "json")
+   response <- PUT(url, add_headers(.headers = to_headers(token)), body = build_tags(tags), encode = "json")
    status_code <- status_code(response)
    content <- content(response, "text", encoding = "UTF-8")
 
@@ -44,9 +53,19 @@ add_subscribers_tags <- function(token, imsi, tags) {
 #' @rdname tags
 #' @export
 delete_subscribers_tag <- function(token, imsi, tag_name) {
-   path <- sprintf("/subscribers/%s/tags/%s", get_segment(imsi), tag_name)
+   url <- if (missing(token)) {
+      if (!missing(imsi)) {
+         warning("imsi is ignored since token is missing.")
+      }
+      token <- NULL
+      path <- sprintf("/subscriber/tags/%s", tag_name)
+      get_metadata_endpoint(path)
+   } else {
+      path <- sprintf("/subscribers/%s/tags/%s", get_segment(imsi), tag_name)
+      get_endpoint(path)
+   }
 
-   response <- DELETE(get_endpoint(path), add_headers(.headers = to_headers(token)))
+   response <- DELETE(url, add_headers(.headers = to_headers(token)))
    status_code <- status_code(response)
 
    switch(
@@ -55,7 +74,12 @@ delete_subscribers_tag <- function(token, imsi, tag_name) {
          invisible()
       },
       "404" = {
-         warning("Subscriber ", sQuote(imsi), " did not have a tag ", sQuote(tag_name), ".")
+         message <- if (missing(imsi)) {
+            sprintf("Current subscriber did not have a tag %s.", sQuote(tag_name))
+         } else {
+            paste0("Subscriber ", sQuote(imsi), " did not have a tag ", sQuote(tag_name), ".")
+         }
+         warning(message)
       },
       {
          stop(content)
