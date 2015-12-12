@@ -10,8 +10,7 @@ list_subscribers(token, group_id, limit, last_evaluated_key, filter)
 get_subscriber(token, imsi)
 }
 \arguments{
-\item{token}{Your API token.
-If it is missing, the metadata API is called instead of the usual API.}
+\item{token}{Your API token.}
 
 \item{group_id}{Group's ID.}
 
@@ -22,7 +21,8 @@ If given, the API would return subscribers from its next.}
 
 \item{filter}{Filter condition. If both \code{group_id} and \code{filter} are present, \code{filter} is ignored.}
 
-\item{imsi}{Subscriber's IMSI.}
+\item{imsi}{Subscriber's IMSI.
+It is mandatory when \code{token} is given.}
 }
 \description{
 Gets/Lists ubscribers.

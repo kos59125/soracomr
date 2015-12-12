@@ -124,7 +124,6 @@ with_mock(
    with_mock(
       "httr::GET" = function(url, ...) {
          expect_equal(url, get_metadata_endpoint("/subscriber"))
-         expect_equal(length(list(...)), 0)
          list(..., status_code = 200, content = subscriber_schema)
       },
       test_that("Checks metadata subscriber", {
@@ -135,7 +134,6 @@ with_mock(
    with_mock(
       "httr::GET" = function(url, ...) {
          expect_equal(url, get_endpoint("/subscribers/imsi"))
-         expect_equal(length(list(...)), 1)
          list(..., status_code = 200, content = subscriber_schema)
       },
       test_that("Checks usual API subscriber", {

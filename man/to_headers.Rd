@@ -4,7 +4,7 @@
 \alias{to_headers}
 \title{HTTP Request Headers}
 \usage{
-to_headers(token, language = getOption("soracomr.language"))
+to_headers(token = list(), language = getOption("soracomr.language"))
 }
 \arguments{
 \item{token}{API Token.}

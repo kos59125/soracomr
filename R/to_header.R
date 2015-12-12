@@ -6,7 +6,7 @@
 #'    API Token.
 #' @param language
 #'    Two-letter language.
-to_headers <- function(token, language = getOption("soracomr.language")) {
+to_headers <- function(token = list(), language = getOption("soracomr.language")) {
    c(
       "X-Soracom-API-Key" = token$apiKey,
       "X-Soracom-Token" = token$token,
